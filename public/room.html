@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room - Collaborative To-Do</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="room-name">Loading Room...</h1>
+            <div>
+                <a href="/dashboard.html"><button>Back to Dashboard</button></a>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="room-page-container">
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <div class="room-container">
+                    <!-- To-Do List Panel -->
+                    <div class="panel">
+                        <h2>Shared To-Do List</h2>
+                        <div id="add-task-form">
+                            <input type="text" id="new-task-input" placeholder="Enter a new task">
+                            <button id="add-task-btn">Add Task</button>
+                        </div>
+                        <ul id="tasks-list">
+                            <!-- Tasks will be populated here -->
+                        </ul>
+                    </div>
+
+                    <!-- Chat Panel -->
+                    <div class="panel">
+                        <h2>Team Chat</h2>
+                        <ul id="messages">
+                            <!-- Messages will be populated here -->
+                        </ul>
+                        <div id="send-message-form">
+                            <input type="text" id="new-message-input" placeholder="Type a message...">
+                            <button id="send-message-btn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar with Member List -->
+            <div class="sidebar">
+                <h2>Room Members</h2>
+                <ul id="members-list">
+                    <!-- Members will be populated here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- Your Scripts -->
+    <script src="/js/auth.js"></script>
+    <script src="/js/room.js"></script>
+</body>
+</html>
