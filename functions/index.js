@@ -33,15 +33,12 @@ const sendNotificationToRoom = async (roomId, currentUserId, payload) => {
   if (tokens.length > 0) {
     logger.log(`Found ${tokens.length} tokens. Preparing to send multicast message.`);
     
-    // --- CORRECTED METHOD ---
-    // The payload needs to be inside a 'message' object for multicast
     const message = {
       notification: payload.notification,
       webpush: payload.webpush,
       tokens: tokens, // Pass tokens here
     };
-
-    // Use sendEachForMulticast instead of sendToDevice
+    
     return getMessaging().sendEachForMulticast(message)
       .then((response) => {
         logger.log("Successfully sent message:", response);
@@ -49,14 +46,13 @@ const sendNotificationToRoom = async (roomId, currentUserId, payload) => {
       .catch((error) => {
         logger.error("Error sending message:", error);
       });
-    // --- END CORRECTION ---
 
   } else {
     logger.warn("No valid FCM tokens found for any members.");
   }
 };
 
-// --- NOTIFICATION TRIGGERS (Unchanged, they call the corrected helper function) ---
+// Notification triggers
 
 exports.onNewMessage = onDocumentCreated({
     document: "/rooms/{roomId}/messages/{messageId}",
@@ -126,10 +122,8 @@ exports.onTaskDeleted = onDocumentDeleted({
   return sendNotificationToRoom(roomId, null, payload);
 });
 
-// HTTP function that returns client Firebase config stored in environment
 exports.clientConfig = functions.https.onRequest(async (req, res) => {
   try {
-    // Try to read from Firebase Functions runtime config (set via `firebase functions:config:set client.key="value"`)
     const cfgFromFn = (functions.config && functions.config().client) || null;
 
     const config = cfgFromFn || {
@@ -141,7 +135,6 @@ exports.clientConfig = functions.https.onRequest(async (req, res) => {
       appId: process.env.FIREBASE_APP_ID,
     };
 
-    // Allow cross-origin requests from hosting
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
     res.set('Cache-Control', 'public, max-age=300');

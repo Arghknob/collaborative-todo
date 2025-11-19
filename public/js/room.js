@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Add console logs for debugging ---
     console.log("Room.js loaded.");
 
     const roomNameDisplay = document.getElementById('room-name');
@@ -57,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         listenToRoomData(); // Changed from listenToMembers to a more robust function
     };
 
-    // --- CORRECTED: Combined Member and Room Data Listener ---
     const listenToRoomData = () => {
         if (unsubscribeRoom) unsubscribeRoom();
         console.log("Setting up listener for room data and members.");
@@ -100,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- Task and Chat Management (largely unchanged) ---
+    
 
     const listenToTasks = () => {
         if (unsubscribeTasks) unsubscribeTasks();

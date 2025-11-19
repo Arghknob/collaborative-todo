@@ -16,7 +16,6 @@ fetch('/__/clientConfig')
       const notificationOptions = {
         body: payload.notification.body,
         icon: payload.notification.icon,
-        // Store the URL to open in the data property
         data: {
             url: payload.fcmOptions.link
         }
@@ -25,7 +24,6 @@ fetch('/__/clientConfig')
       return self.registration.showNotification(notificationTitle, notificationOptions);
     });
 
-    // Handle notification clicks
     self.addEventListener('notificationclick', function(event) {
       const clickedNotification = event.notification;
       clickedNotification.close();

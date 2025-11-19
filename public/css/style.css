@@ -216,7 +216,7 @@ input[type="text"] {
     border-bottom: 1px solid #f0f0f0;
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* Responsive design */
 
 /* For tablets and larger phones */
 @media (min-width: 600px) {

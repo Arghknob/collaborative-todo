@@ -1,15 +1,11 @@
-// Load client Firebase config from function at runtime so secrets are not stored in repo.
-// The hosting rewrite maps '/__/clientConfig' to the `clientConfig` function.
 (async function init() {
     const resp = await fetch('/__/clientConfig');
     const firebaseConfig = await resp.json();
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // --- Authentication State Observer ---
     auth.onAuthStateChanged(user => {
     if (user) {
         // User is signed in.
@@ -28,14 +24,12 @@
     }
 });
 
-// --- Sign-in and Sign-out Functions ---
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider)
             .then(result => {
                 const user = result.user;
 
-                // Use .set() with { merge: true } to avoid overwriting fields like 'rooms'.
                 const userRef = db.collection('users').doc(user.uid);
                 userRef.set({
                     name: user.displayName,
@@ -54,7 +48,6 @@
         });
     };
 
-    // Attach Event Listeners
     document.addEventListener('DOMContentLoaded', () => {
         const googleLoginBtn = document.getElementById('google-login-btn');
         if (googleLoginBtn) {

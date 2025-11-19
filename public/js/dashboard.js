@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             listenToUserRooms(user.uid);
             
-            // --- NEW ---: Call the function to set up notifications
             setupNotifications(user.uid);
 
             newRoomNameInput.disabled = false;
@@ -80,15 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- NEW FUNCTION FOR NOTIFICATIONS ---
     const setupNotifications = async (userId) => {
         const messaging = firebase.messaging();
         
-        // =======================================================================
         // IMPORTANT: REPLACE THIS KEY WITH THE ONE FROM YOUR FIREBASE CONSOLE
         // Project Settings > Cloud Messaging > Web configuration > Web Push certificates
         const vapidKey = "BHABTWqfSYMIWNFoc7f181L8jGiB0aSPFMBLK75HZzTBb9gFITV1fMSXkErmLpeIxWmgsON5cUJBUyx9oLFcx7o";
-        // =======================================================================
+        
         
         try {
         await Notification.requestPermission();
