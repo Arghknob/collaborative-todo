@@ -11,13 +11,6 @@ This repository contains a client (in `public/`) and Cloud Functions (in `functi
 - `firebase.json` — Firebase config for hosting, functions, rules
 - `firestore.rules`, `firestore.indexes.json` — Firestore security and indexes
 
-**What changed (notes)**
-- The client now fetches its Firebase config from the `clientConfig` HTTPS function at `/__/clientConfig`. This keeps config out of source files.
-- A `clientConfig` HTTP function was added to `functions/index.js`. It returns runtime config read from `functions.config().client` or from environment variables.
-- A hosting rewrite was added to `firebase.json` to map `/__/clientConfig` to the `clientConfig` function.
-- A `.env.example` and `DEPLOY.md` were added to help set environment values and deploy.
-
-Why: While the Firebase `apiKey` used on the web is not a secret in practice, moving values out of source control helps centralize secret management and avoid accidentally committing other secrets.
 
 ---
 
